@@ -4,12 +4,6 @@ const repositoryName = 'unform';
 
 import '../styles/repositories.scss';
 
-const repository = {
-    name: 'unform',
-    description: 'Forms in React',
-    link: 'https://github.com/juan-20'
-}
-
 function RepositoryList() {
 
     const [repositories, setRepositories] = useState([]);
@@ -26,15 +20,10 @@ function RepositoryList() {
             <h1>Lista de repositórios</h1>
 
             <ul>
-                <RepositoryItem repository={repository}
-
-                // repository='unamed'
-                // description='Forms in react'
-                // link='https://github.com/juan-20'
-                // Pode se passar o valor assim por cada um ou criando um objeto
-                />
-                <RepositoryItem repository={repository} />
-                <RepositoryItem repository={repository} />
+                {/* a cada map que tiver algo ele retorna o elemento item */}
+                {repositories.map(repository => (
+                    <RepositoryItem key={repository.name} repository={repository} />
+                ))}
             </ul>
 
         </section>
