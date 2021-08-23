@@ -1,7 +1,12 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-    mode: 'development',
+    mode: isDevelopment ? 'development' : 'production',
+    // deixa o erro do console no lugar certo
+    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: path.resolve(__dirname, 'src', 'index.jsx'),
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -10,6 +15,17 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
     },
+
+    devServer: {
+        // contentBase: path.resolve(__dirname, 'public')
+    },
+
+    // seta o index;html
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'public', 'index.html')
+        })
+    ],
     module: {
         rules: [
             // vê se o arquivo é JS
@@ -17,7 +33,13 @@ module.exports = {
                 test: /\.jsx$/,
                 exclude: /node_modules/,
                 use: 'babel-loader'
-            }
+            },
+            // rule para entender o css
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     }
 }
