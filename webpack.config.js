@@ -7,13 +7,13 @@ module.exports = {
     mode: isDevelopment ? 'development' : 'production',
     // deixa o erro do console no lugar certo
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
-    entry: path.resolve(__dirname, 'src', 'index.jsx'),
+    entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.tsx', '.ts'],
     },
 
     devServer: {
@@ -30,7 +30,7 @@ module.exports = {
         rules: [
             // vê se o arquivo é JS
             {
-                test: /\.jsx$/,
+                test: /\.(j|t)sx$/,
                 exclude: /node_modules/,
                 use: 'babel-loader'
             },

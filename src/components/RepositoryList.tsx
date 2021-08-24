@@ -4,11 +4,18 @@ const repositoryName = 'unform';
 
 import '../styles/repositories.scss';
 
+interface Repository {
+    name: string,
+    // tem de declarar essas pq tá passando pela props
+    description: string,
+    html_url: string
+}
+
 function RepositoryList() {
 
-    const [repositories, setRepositories] = useState([]);
+    const [repositories, setRepositories] = useState<Repository[]>([]);
 
-    // ele recebe 2 parametros 1 qual função quer executar e o segundo quando quer executar
+    // ele recebe 2 parametros 1 qual função quer executar e o segundo quando quer executar e retorna pra dentro do setrepositories
     useEffect(() => {
         fetch('https://api.github.com/users/juan-20/repos')
             .then(response => response.json())
@@ -22,7 +29,10 @@ function RepositoryList() {
             <ul>
                 {/* a cada map que tiver algo ele retorna o elemento item */}
                 {repositories.map(repository => (
-                    <RepositoryItem key={repository.name} repository={repository} />
+                    <RepositoryItem
+                        key={repository.name}
+                        repository={repository}
+                    />
                 ))}
             </ul>
 
